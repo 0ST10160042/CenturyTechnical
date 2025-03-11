@@ -238,6 +238,10 @@ class HashVettingApp:
         self.report_button = tk.Button(self.button_frame, text="Generate Report", command=self.generate_report, bg='#4e4e4e', fg='white', bd=2, relief='flat', height=1, padx=10, pady=5)
         self.report_button.pack(side=tk.LEFT, expand=True, fill='x', padx=3, pady=2)
         
+        # Add Refresh Button
+        self.refresh_button = tk.Button(self.button_frame, text="Refresh", command=self.refresh_app, bg='#4e4e4e', fg='white', bd=2, relief='flat', height=1, padx=10, pady=5)
+        self.refresh_button.pack(side=tk.LEFT, expand=True, fill='x', padx=3, pady=2)
+        
         self.scan_button = tk.Button(main_frame, text="Scan and Move", bg='#4e4e4e', fg='white', height=1, width=10, command=self.scan_and_move, bd=2, relief='flat', padx=10, pady=5)
         self.scan_button.grid(row=5, column=0, columnspan=3, sticky='nsew', padx=5, pady=5)
         
@@ -295,6 +299,16 @@ class HashVettingApp:
         folder_path = filedialog.askdirectory(title="Select Quarantine Folder")
         self.quarantine_folder_entry.delete(0, tk.END)
         self.quarantine_folder_entry.insert(0, folder_path)
+
+    def refresh_app(self):
+        """Refresh the application to its initial state."""
+        self.hash_file_entry.delete(0, tk.END)
+        self.target_folder_entry.delete(0, tk.END)
+        self.quarantine_folder_entry.delete(0, tk.END)
+        self.status_label['text'] = "Status: Idle"
+        self.progress_bar['value'] = 0
+        self.input_hashes = set()
+        print("Application refreshed.")
 
 if __name__ == "__main__":
     root = tk.Tk()
